@@ -171,7 +171,7 @@ export default function ArtworkGallery() {
       {/* Top Header Row */}
       <div className="flex justify-between items-baseline border-b border-[#111] pb-2 mb-6">
         <div className="text-[13px] md:text-[14px] font-normal text-[#111] flex items-center gap-2">
-          <span>Work</span>
+          <span>Workkkkkkk</span>
           {isConnected && (
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block" title="Live sync connected" />
           )}
