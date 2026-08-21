@@ -9,7 +9,7 @@ const geistMono = localFont({
       style: 'normal',
     },
     {
-      path: './fonts/GeistMono-Italic[wght].woff2',
+      path: './fonts/GeistMono-Italic.woff2',
       style: 'italic',
     },
   ],
