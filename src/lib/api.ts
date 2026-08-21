@@ -1,5 +1,6 @@
 import { Artwork, ARTWORKS } from '@/data/artworks'
 
+// v1.1.0 - Landing Page API Support
 const isProd = process.env.NODE_ENV === 'production' && typeof window !== 'undefined' && window.location.protocol !== 'http:'
 const API_BASE = '/api'
 
