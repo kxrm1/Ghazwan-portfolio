@@ -373,13 +373,15 @@ export default function ArtworkGallery() {
                     </span>
                   </div>
 
-                  {/* Artwork Image or Grey Fallback */}
-                  <div className="relative overflow-hidden bg-[#f4f4f4]">
+                  {/* Artwork Image or Fallback */}
+                  <div className="relative overflow-hidden bg-white">
                     <PlaceholderImage
                       src={displayImg}
                       aspectRatio={art.aspectRatio}
+                      objectFit="contain"
                       label={`${art.title}`}
                       alt={art.title}
+                      className="bg-white"
                     />
                   </div>
 
@@ -394,7 +396,7 @@ export default function ArtworkGallery() {
           </AnimatePresence>
         </div>
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-5">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-4 gap-y-6 md:gap-x-5 md:gap-y-8">
           <AnimatePresence>
             {filteredArtworks.map((art) => {
               const displayImg = art.imageUrl || (art.images && art.images[0]) || ''
@@ -407,20 +409,23 @@ export default function ArtworkGallery() {
                   exit={{ opacity: 0, scale: 0.96 }}
                   transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
                   onClick={() => setActiveArtwork(art)}
-                  className="group cursor-pointer mb-3 space-y-1.5 block"
+                  className="group cursor-pointer space-y-2 block"
                 >
-                  {/* Artwork Image in Uniform Square */}
-                  <div className="relative overflow-hidden bg-[#f4f4f4] aspect-square">
+                  {/* Grid Item Box: Capped vertically, white background, zero cropping */}
+                  <div className="relative overflow-hidden bg-white w-full h-[180px] sm:h-[200px] md:h-[220px] flex items-center justify-center">
                     <PlaceholderImage
                       src={displayImg}
-                      aspectRatio="aspect-square"
+                      aspectRatio="h-full w-full"
+                      objectFit="contain"
                       label={`${art.title}`}
                       alt={art.title}
+                      className="h-full w-full bg-white flex items-center justify-center"
+                      imageClassName="max-h-full max-w-full w-auto h-auto object-contain"
                     />
                   </div>
 
                   {/* Artwork Title & Year */}
-                  <div className="space-y-0.5 text-[10px] md:text-[11px] leading-tight">
+                  <div className="space-y-0.5 text-[10px] md:text-[11px] leading-tight pt-1">
                     <div className="flex justify-between items-baseline gap-1">
                       <span className="text-[#111] font-normal truncate group-hover:opacity-60 transition-opacity">
                         {art.title}
