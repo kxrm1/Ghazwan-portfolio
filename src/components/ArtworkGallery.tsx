@@ -15,6 +15,7 @@ export default function ArtworkGallery() {
   const [selectedStatus, setSelectedStatus] = useState<string>('All')
   const [activeArtwork, setActiveArtwork] = useState<Artwork | null>(null)
   const [activeShotIndex, setActiveShotIndex] = useState<number>(0)
+  const [layoutMode, setLayoutMode] = useState<'masonry' | 'grid'>('masonry')
 
   const reloadData = useCallback(async () => {
     try {
@@ -167,23 +168,72 @@ export default function ArtworkGallery() {
   const shotLabels = ['Primary View', 'Side Profile', 'Detail Texture', 'Scale & Environment']
 
   return (
-    <section className="w-full font-serif pb-4">
+    <section className="w-full pb-4">
       {/* Top Header Row */}
-      <div className="flex justify-between items-baseline border-b border-[#111] pb-2 mb-6">
-        <div className="text-[13px] md:text-[14px] font-normal text-[#111] flex items-center gap-2">
+      <div className="flex justify-between items-center gap-2 border-b border-[#111] pb-2 mb-5 min-h-[26px]">
+        <div className="text-[11px] md:text-[12px] font-normal text-[#111] flex items-center gap-2">
           <span>Work</span>
         </div>
-        <div className="text-[12px] text-[#777]">
-          {filteredArtworks.length} of {artworksList.length} items
+
+        <div className="flex items-center gap-3 text-[10px] md:text-[11px]">
+          {/* Layout Changer */}
+          <div className="flex items-center gap-1.5 text-[#888]">
+            <button
+              onClick={() => setLayoutMode('masonry')}
+              className={`inline-flex items-center gap-1 transition-colors px-1 py-0.5 ${
+                layoutMode === 'masonry'
+                  ? 'text-[#111] font-semibold underline underline-offset-2'
+                  : 'text-[#888] hover:text-[#111]'
+              }`}
+              title="Masonry layout"
+            >
+              <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor">
+                <rect x="1" y="1" width="6" height="8" rx="0.5" />
+                <rect x="9" y="1" width="6" height="5" rx="0.5" />
+                <rect x="1" y="10" width="6" height="5" rx="0.5" />
+                <rect x="9" y="7" width="6" height="8" rx="0.5" />
+              </svg>
+              <span>Masonry</span>
+            </button>
+            <span className="text-[#ccc]">/</span>
+            <button
+              onClick={() => setLayoutMode('grid')}
+              className={`inline-flex items-center gap-1 transition-colors px-1 py-0.5 ${
+                layoutMode === 'grid'
+                  ? 'text-[#111] font-semibold underline underline-offset-2'
+                  : 'text-[#888] hover:text-[#111]'
+              }`}
+              title="Small grid layout"
+            >
+              <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor">
+                <rect x="1" y="1" width="4" height="4" rx="0.5" />
+                <rect x="6" y="1" width="4" height="4" rx="0.5" />
+                <rect x="11" y="1" width="4" height="4" rx="0.5" />
+                <rect x="1" y="6" width="4" height="4" rx="0.5" />
+                <rect x="6" y="6" width="4" height="4" rx="0.5" />
+                <rect x="11" y="6" width="4" height="4" rx="0.5" />
+                <rect x="1" y="11" width="4" height="4" rx="0.5" />
+                <rect x="6" y="11" width="4" height="4" rx="0.5" />
+                <rect x="11" y="11" width="4" height="4" rx="0.5" />
+              </svg>
+              <span>Grid</span>
+            </button>
+          </div>
+
+          <span className="text-[#ccc]">·</span>
+
+          <div className="text-[10px] md:text-[11px] text-[#777]">
+            {filteredArtworks.length} of {artworksList.length} items
+          </div>
         </div>
       </div>
 
       {/* Horizontal Filter Bar */}
-      <div className="border-b border-[#f0f0f0] pb-6 mb-8 space-y-4">
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-[12px] md:text-[13px]">
+      <div className="border-b border-[#f0f0f0] pb-5 mb-6 space-y-3">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-[10px] md:text-[11px]">
           <div>
-            <div className="text-[#888] text-[11px] mb-1">(category)</div>
-            <div className="flex flex-wrap gap-x-2 gap-y-1">
+            <div className="text-[#888] text-[9.5px] mb-0.5">category</div>
+            <div className="flex flex-wrap gap-x-2 gap-y-0.5">
               {categories.map((cat) => (
                 <button
                   key={cat}
@@ -201,8 +251,8 @@ export default function ArtworkGallery() {
           </div>
 
           <div>
-            <div className="text-[#888] text-[11px] mb-1">(material)</div>
-            <div className="flex flex-wrap gap-x-2 gap-y-1">
+            <div className="text-[#888] text-[9.5px] mb-0.5">material</div>
+            <div className="flex flex-wrap gap-x-2 gap-y-0.5">
               {materials.map((mat) => (
                 <button
                   key={mat}
@@ -220,8 +270,8 @@ export default function ArtworkGallery() {
           </div>
 
           <div>
-            <div className="text-[#888] text-[11px] mb-1">(status)</div>
-            <div className="flex flex-wrap gap-x-2 gap-y-1">
+            <div className="text-[#888] text-[9.5px] mb-0.5">status</div>
+            <div className="flex flex-wrap gap-x-2 gap-y-0.5">
               {statuses.map((st) => (
                 <button
                   key={st}
@@ -239,13 +289,13 @@ export default function ArtworkGallery() {
           </div>
 
           <div>
-            <div className="flex justify-between items-baseline text-[#888] text-[11px] mb-1">
-              <span>(period)</span>
-              <span className="text-[#111] font-mono text-[11px]">
+            <div className="flex justify-between items-baseline text-[#888] text-[9.5px] mb-0.5">
+              <span>period</span>
+              <span className="text-[#111] font-mono text-[9.5px]">
                 {yearMin} — {yearMax}
               </span>
             </div>
-            <div className="space-y-1.5 pt-1">
+            <div className="space-y-1 pt-0.5">
               <div className="flex items-center gap-2">
                 <input
                   type="range"
@@ -272,7 +322,7 @@ export default function ArtworkGallery() {
                   title={`To year: ${yearMax}`}
                 />
               </div>
-              <div className="flex justify-between text-[10px] text-[#999]">
+              <div className="flex justify-between text-[9px] text-[#999]">
                 <span>{minYear}</span>
                 <span>{maxYear}</span>
               </div>
@@ -281,10 +331,10 @@ export default function ArtworkGallery() {
         </div>
 
         {hasActiveFilters && (
-          <div className="pt-2">
+          <div className="pt-1">
             <button
               onClick={resetFilters}
-              className="text-[11px] text-[#999] hover:text-[#111] underline transition-colors"
+              className="text-[10px] text-[#999] hover:text-[#111] underline transition-colors"
             >
               Clear filters
             </button>
@@ -292,13 +342,13 @@ export default function ArtworkGallery() {
         )}
       </div>
 
-      {/* Masonry Stream of Artworks */}
+      {/* Stream of Artworks (Masonry or Small Item Grid) */}
       {filteredArtworks.length === 0 ? (
-        <div className="py-20 text-center text-[13px] text-[#888]">
+        <div className="py-16 text-center text-[11px] text-[#888]">
           No artworks match the selected filter criteria.
         </div>
-      ) : (
-        <div className="columns-1 sm:columns-2 gap-6 md:gap-8 [column-fill:_balance]">
+      ) : layoutMode === 'masonry' ? (
+        <div className="columns-1 sm:columns-2 gap-5 md:gap-7 [column-fill:_balance]">
           <AnimatePresence>
             {filteredArtworks.map((art) => {
               const displayImg = art.imageUrl || (art.images && art.images[0]) || ''
@@ -311,14 +361,14 @@ export default function ArtworkGallery() {
                   exit={{ opacity: 0, scale: 0.98 }}
                   transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                   onClick={() => setActiveArtwork(art)}
-                  className="group cursor-pointer mb-8 break-inside-avoid space-y-3 block"
+                  className="group cursor-pointer mb-6 break-inside-avoid space-y-2 block"
                 >
                   {/* Artwork Title & Year */}
-                  <div className="flex justify-between items-baseline text-[13px] leading-tight">
+                  <div className="flex justify-between items-baseline text-[11px] md:text-[12px] leading-tight">
                     <span className="text-[#111] font-normal group-hover:opacity-60 transition-opacity">
                       {art.title}, {art.year}
                     </span>
-                    <span className="text-[#777] text-[11px]">
+                    <span className="text-[#777] text-[10px]">
                       {art.status}
                     </span>
                   </div>
@@ -334,9 +384,54 @@ export default function ArtworkGallery() {
                   </div>
 
                   {/* Artwork Specs */}
-                  <div className="text-[12px] leading-snug text-[#555] space-y-0.5 pt-0.5">
+                  <div className="text-[10px] md:text-[11px] leading-[0.9] text-[#555] space-y-0.5 pt-0.5">
                     <div>{art.material} · {art.dimensions}</div>
-                    <div className="text-[#999] text-[11px]">{art.location}</div>
+                    <div className="text-[#999] text-[9.5px]">{art.location}</div>
+                  </div>
+                </motion.div>
+              )
+            })}
+          </AnimatePresence>
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-5">
+          <AnimatePresence>
+            {filteredArtworks.map((art) => {
+              const displayImg = art.imageUrl || (art.images && art.images[0]) || ''
+              return (
+                <motion.div
+                  key={art.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.96 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.96 }}
+                  transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                  onClick={() => setActiveArtwork(art)}
+                  className="group cursor-pointer mb-3 space-y-1.5 block"
+                >
+                  {/* Artwork Image in Uniform Square */}
+                  <div className="relative overflow-hidden bg-[#f4f4f4] aspect-square">
+                    <PlaceholderImage
+                      src={displayImg}
+                      aspectRatio="aspect-square"
+                      label={`${art.title}`}
+                      alt={art.title}
+                    />
+                  </div>
+
+                  {/* Artwork Title & Year */}
+                  <div className="space-y-0.5 text-[10px] md:text-[11px] leading-tight">
+                    <div className="flex justify-between items-baseline gap-1">
+                      <span className="text-[#111] font-normal truncate group-hover:opacity-60 transition-opacity">
+                        {art.title}
+                      </span>
+                      <span className="text-[#888] text-[9px] shrink-0 font-mono">
+                        {art.year}
+                      </span>
+                    </div>
+                    <div className="text-[#666] text-[9.5px] truncate">
+                      {art.material}
+                    </div>
                   </div>
                 </motion.div>
               )
@@ -353,91 +448,93 @@ export default function ArtworkGallery() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 16 }}
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-50 bg-white overflow-y-auto font-serif text-[#1c1c1c]"
+            className="fixed inset-0 z-50 bg-white overflow-y-auto text-[#1c1c1c]"
           >
             {/* Top Navigation Bar with Small '✕' Close Button */}
             <div className="sticky top-0 z-20 bg-white/95 backdrop-blur-sm border-b border-[#111]">
-              <div className="max-w-[1600px] mx-auto px-4 md:px-8 lg:px-12 py-4 flex justify-between items-baseline">
-                <div className="text-[14px] md:text-[15px] font-normal text-[#111]">
+              <div className="max-w-[1600px] mx-auto px-4 md:px-8 lg:px-12 py-3 flex justify-between items-baseline">
+                <div className="text-[12px] md:text-[13px] font-normal text-[#111]">
                   Ghazwan Allaf
                 </div>
                 <button
                   onClick={() => setActiveArtwork(null)}
                   aria-label="Close"
-                  className="text-[14px] text-[#111] hover:opacity-50 transition-opacity p-1.5 inline-flex items-center gap-1.5"
+                  className="text-[12px] text-[#111] hover:opacity-50 transition-opacity p-1 inline-flex items-center gap-1"
                 >
-                  <span className="text-[16px] leading-none">✕</span>
+                  <span className="text-[14px] leading-none">✕</span>
                 </button>
               </div>
             </div>
 
             {/* Split Content: Left Sticky Details | Right Image Gallery & Multi-Shot Row */}
-            <div className="max-w-[1600px] mx-auto px-4 md:px-8 lg:px-12 py-10 md:py-14">
-              <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start">
+            <div className="max-w-[1600px] mx-auto px-4 md:px-8 lg:px-12 py-8 md:py-10">
+              <div className="flex flex-col lg:flex-row items-stretch min-h-[calc(100vh-6rem)]">
                 
-                {/* Left Side: Pinned Static to Viewport */}
-                <div className="w-full lg:w-[350px] xl:w-[380px] lg:sticky lg:top-[72px] lg:self-start lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto scrollbar-none border-b lg:border-b-0 lg:border-r border-[#f0f0f0] pb-8 lg:pb-0 lg:pr-8 space-y-8 text-[13px] md:text-[14px] leading-[1.6] tracking-tight">
-                  <div className="space-y-1 pb-4 border-b border-[#f0f0f0]">
-                    <h1 className="text-[22px] md:text-[24px] font-normal text-[#111] tracking-tight">
-                      {activeArtwork.title}
-                    </h1>
-                    <div className="text-[13px] text-[#777]">
-                      {activeArtwork.series} — {activeArtwork.year}
-                    </div>
-                  </div>
-
-                  {/* Specifications List */}
-                  <div className="space-y-3.5 pt-1">
-                    <div>
-                      <span className="text-[#888] text-[11px] block">(category)</span>
-                      <span className="text-[#111]">{activeArtwork.category}</span>
+                {/* Left Side: Stretches full height, inner content pinned */}
+                <div className="w-full lg:w-[320px] xl:w-[350px] lg:border-r border-[#f0f0f0] border-b lg:border-b-0 pb-6 lg:pb-0 lg:pr-8 lg:mr-8">
+                  <div className="lg:sticky lg:top-[60px] lg:max-h-[calc(100vh-5rem)] lg:overflow-y-auto scrollbar-none space-y-6 text-[11px] md:text-[12px] leading-[1.35] tracking-tight">
+                    <div className="space-y-0.5 pb-3 border-b border-[#f0f0f0]">
+                      <h1 className="text-[18px] md:text-[20px] font-normal text-[#111] tracking-tight">
+                        {activeArtwork.title}
+                      </h1>
+                      <div className="text-[11px] text-[#777]">
+                        {activeArtwork.series} — {activeArtwork.year}
+                      </div>
                     </div>
 
-                    <div>
-                      <span className="text-[#888] text-[11px] block">(material)</span>
-                      <span className="text-[#111]">{activeArtwork.material}</span>
+                    {/* Specifications List */}
+                    <div className="space-y-2.5 pt-0.5">
+                      <div>
+                        <span className="text-[#888] text-[9.5px] block">(category)</span>
+                        <span className="text-[#111]">{activeArtwork.category}</span>
+                      </div>
+
+                      <div>
+                        <span className="text-[#888] text-[9.5px] block">(material)</span>
+                        <span className="text-[#111]">{activeArtwork.material}</span>
+                      </div>
+
+                      <div>
+                        <span className="text-[#888] text-[9.5px] block">(dimensions)</span>
+                        <span className="text-[#111]">{activeArtwork.dimensions}</span>
+                      </div>
+
+                      <div>
+                        <span className="text-[#888] text-[9.5px] block">(status)</span>
+                        <span className="text-[#111]">{activeArtwork.status}</span>
+                      </div>
+
+                      <div>
+                        <span className="text-[#888] text-[9.5px] block">(location)</span>
+                        <span className="text-[#111]">{activeArtwork.location}</span>
+                      </div>
                     </div>
 
-                    <div>
-                      <span className="text-[#888] text-[11px] block">(dimensions)</span>
-                      <span className="text-[#111]">{activeArtwork.dimensions}</span>
-                    </div>
-
-                    <div>
-                      <span className="text-[#888] text-[11px] block">(status)</span>
-                      <span className="text-[#111]">{activeArtwork.status}</span>
-                    </div>
-
-                    <div>
-                      <span className="text-[#888] text-[11px] block">(location)</span>
-                      <span className="text-[#111]">{activeArtwork.location}</span>
-                    </div>
-                  </div>
-
-                  {/* Inquire CTA */}
-                  <div className="pt-6 border-t border-[#f0f0f0] space-y-2.5">
-                    <div className="text-[#888] text-[11px]">
-                      (inquiries & acquisition)
-                    </div>
-                    <div>
-                      <a
-                        href="https://www.ghazwanallaf.com"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-block text-[#111] underline underline-offset-4 hover:opacity-50 transition-opacity"
-                      >
-                        Inquire via ghazwanallaf.com →
-                      </a>
-                    </div>
-                    <div>
-                      <a
-                        href="https://www.artsy.net"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-block text-[#666] underline underline-offset-4 hover:opacity-50 transition-opacity text-[12px]"
-                      >
-                        View artist profile on Artsy
-                      </a>
+                    {/* Inquire CTA */}
+                    <div className="pt-4 border-t border-[#f0f0f0] space-y-2">
+                      <div className="text-[#888] text-[9.5px]">
+                        (inquiries & acquisition)
+                      </div>
+                      <div>
+                        <a
+                          href="https://www.ghazwanallaf.com"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-block text-[#111] underline underline-offset-4 hover:opacity-50 transition-opacity"
+                        >
+                          Inquire via ghazwanallaf.com →
+                        </a>
+                      </div>
+                      <div>
+                        <a
+                          href="https://www.artsy.net"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-block text-[#666] underline underline-offset-4 hover:opacity-50 transition-opacity text-[10.5px]"
+                        >
+                          View artist profile on Artsy
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -516,7 +613,7 @@ export default function ArtworkGallery() {
 
               </div>
             </div>
-          </motion.div>
+          </motion.div> 
         )}
       </AnimatePresence>
     </section>

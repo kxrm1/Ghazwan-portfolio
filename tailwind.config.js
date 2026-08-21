@@ -16,9 +16,9 @@ module.exports = {
         hoverGray: '#f4f4f4'
       },
       fontFamily: {
-        sans: ['"Times New Roman"', 'Times', 'serif'],
-        serif: ['"Times New Roman"', 'Times', 'serif'],
-        mono: ['"Times New Roman"', 'Times', 'serif'],
+        sans: ['var(--font-geist-mono)', 'monospace'],
+        serif: ['var(--font-geist-mono)', 'monospace'],
+        mono: ['var(--font-geist-mono)', 'monospace'],
       },
       letterSpacing: {
         tighter: '-0.04em',

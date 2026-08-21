@@ -413,17 +413,6 @@ export default function AdminDashboardPage() {
         <div>
           <div className="text-[11px] text-[#888] uppercase tracking-wider flex items-center gap-2">
             <span>Management Panel</span>
-            {isConnected ? (
-              <span className="inline-flex items-center gap-1 text-[10px] text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                Live Sync Active
-              </span>
-            ) : (
-              <span className="inline-flex items-center gap-1 text-[10px] text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">
-                <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
-                Connecting...
-              </span>
-            )}
           </div>
           <h1 className="text-[20px] md:text-[22px] font-normal text-[#111] tracking-tight">
             Ghazwan Allaf — Archive Dashboard
@@ -646,7 +635,7 @@ export default function AdminDashboardPage() {
                       </button>
                     </div>
                   ) : (
-                    <>
+                    <> 
                       <span className="text-[#111] font-medium">{cat}</span>
                       <div className="space-x-3 text-[11px]">
                         <button

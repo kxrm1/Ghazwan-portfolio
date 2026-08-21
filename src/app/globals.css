@@ -7,7 +7,8 @@
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-family: "Times New Roman", Times, Georgia, serif !important;
+    font-family: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+    font-size: 10px !important;
   }
   
   ::selection {
@@ -18,9 +19,13 @@
   html, body {
     background-color: #ffffff;
     color: #1c1c1c;
-    font-family: "Times New Roman", Times, Georgia, serif !important;
-    font-size: 13px;
-    line-height: 1.4;
+    font-family: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+    font-size: 10px !important;
+    line-height: 0.9;
+  }
+
+  h1, h2, h3, h4, h5, h6, p, span, a, button, input, textarea, select, label, div, aside, section, header, main, footer, td, th, li {
+    font-size: 10px !important;
   }
 }
 

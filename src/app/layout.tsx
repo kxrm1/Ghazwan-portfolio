@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { GeistMono } from 'geist/font/mono'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -12,8 +13,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className="bg-white text-[#1c1c1c] antialiased selection:bg-[#a2a2a2] selection:text-white font-serif">
+    <html lang="en" className={GeistMono.variable}>
+      <body className={`${GeistMono.className} bg-white text-[#1c1c1c] antialiased selection:bg-[#a2a2a2] selection:text-white`}>
         {children}
       </body>
     </html>

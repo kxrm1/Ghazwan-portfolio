@@ -32,7 +32,7 @@ export default function Navigation({ currentSection }: NavigationProps) {
       </div>
 
       {/* 4 Column Uniform Editorial Layout */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-6 md:gap-x-8 text-[12px] md:text-[13px] leading-[1.45] tracking-tight">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-6 md:gap-x-8 text-[12px] md:text-[13px] leading-[0.9] tracking-tight">
         
         {/* Column 1: Artworks */}
         <div className="flex flex-col">

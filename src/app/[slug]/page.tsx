@@ -59,7 +59,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
 
       {/* Project Meta Information Grid */}
       <div className="max-w-[1440px] mx-auto px-4 md:px-6 lg:px-8 mb-14 md:mb-20">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-y-8 gap-x-6 text-[13px] md:text-[14px] tracking-tight leading-[1.5]">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-y-8 gap-x-6 text-[13px] md:text-[14px] tracking-tight leading-[0.9]">
           {/* Project Title */}
           <div className="md:col-span-4 space-y-1">
             <h1 className="text-[17px] md:text-[19px] font-normal text-[#111]">
@@ -73,7 +73,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
           {/* Description */}
           <div className="md:col-span-5 space-y-4 text-[#333] pr-0 md:pr-6">
             {project.description.map((para, i) => (
-              <p key={i} className="leading-[1.6]">
+              <p key={i} className="leading-[0.9]">
                 {para}
               </p>
             ))}
