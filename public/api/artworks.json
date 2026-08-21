@@ -1,0 +1,211 @@
+[
+  {
+    "id": "art-2",
+    "title": "Torso in Equilibrium1",
+    "category": "Sculpture",
+    "material": "Marble",
+    "year": 2023,
+    "status": "Sold",
+    "dimensions": "85 x 30 x 30 cm",
+    "location": "Private Collection, Beirut",
+    "series": "Classical Reinterpretation",
+    "aspectRatio": "aspect-[4/5]",
+    "imageUrl": "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-bd916210-9118-47fb-a798-63661eb10a39.jpg?w=812",
+    "images": [
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-bd916210-9118-47fb-a798-63661eb10a39.jpg?w=812",
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-b615b0e9-a3d8-4f10-ae40-c9a87d00f722.jpg?w=812",
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-eeffe04a-1d5c-4f5c-96fe-75fa5a18d029.jpg?w=812",
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-283b0865-ec63-4411-9689-d9d15024479e.jpg?w=812"
+    ]
+  },
+  {
+    "id": "art-3",
+    "title": "Duality of Silence",
+    "category": "Sculpture",
+    "material": "Wood",
+    "year": 2023,
+    "status": "Available",
+    "dimensions": "95 x 35 x 25 cm",
+    "location": "Studio Damascus",
+    "series": "Organic Forms",
+    "aspectRatio": "aspect-[3/4]",
+    "imageUrl": "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-b615b0e9-a3d8-4f10-ae40-c9a87d00f722.jpg?w=812",
+    "images": [
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-b615b0e9-a3d8-4f10-ae40-c9a87d00f722.jpg?w=812",
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-eeffe04a-1d5c-4f5c-96fe-75fa5a18d029.jpg?w=812",
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-283b0865-ec63-4411-9689-d9d15024479e.jpg?w=812",
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-14e3ca1f-299f-4318-8772-a279093a7e58.jpg?w=812"
+    ]
+  },
+  {
+    "id": "art-4",
+    "title": "Damascus Citadel Study",
+    "category": "Painting",
+    "material": "Mixed Media on Canvas",
+    "year": 2022,
+    "status": "Sold",
+    "dimensions": "150 x 120 cm",
+    "location": "Private Collection, Dubai",
+    "series": "Heritage & Memory",
+    "aspectRatio": "aspect-[4/3]",
+    "imageUrl": "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-eeffe04a-1d5c-4f5c-96fe-75fa5a18d029.jpg?w=812",
+    "images": [
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-eeffe04a-1d5c-4f5c-96fe-75fa5a18d029.jpg?w=812",
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-283b0865-ec63-4411-9689-d9d15024479e.jpg?w=812",
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-14e3ca1f-299f-4318-8772-a279093a7e58.jpg?w=812",
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-4c8be592-36d3-4d76-8051-5079a42146f3.jpg?w=812"
+    ]
+  },
+  {
+    "id": "art-5",
+    "title": "Whispers of Basalt",
+    "category": "Sculpture",
+    "material": "Basalt & Stone",
+    "year": 2022,
+    "status": "Available",
+    "dimensions": "60 x 40 x 35 cm",
+    "location": "Studio Damascus",
+    "series": "Syrian Stone Series",
+    "aspectRatio": "aspect-[1/1]",
+    "imageUrl": "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-283b0865-ec63-4411-9689-d9d15024479e.jpg?w=812",
+    "images": [
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-283b0865-ec63-4411-9689-d9d15024479e.jpg?w=812",
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-14e3ca1f-299f-4318-8772-a279093a7e58.jpg?w=812",
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-4c8be592-36d3-4d76-8051-5079a42146f3.jpg?w=812",
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-850d3666-4e55-46eb-8e2b-f8ecdf0b9ae3.jpg?w=812"
+    ]
+  },
+  {
+    "id": "art-6",
+    "title": "Winged Figure in Ascent",
+    "category": "Sculpture",
+    "material": "Bronze",
+    "year": 2021,
+    "status": "Sold",
+    "dimensions": "140 x 50 x 45 cm",
+    "location": "Private Collection, Paris",
+    "series": "Mythological Studies",
+    "aspectRatio": "aspect-[3/4]",
+    "imageUrl": "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-14e3ca1f-299f-4318-8772-a279093a7e58.jpg?w=812",
+    "images": [
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-14e3ca1f-299f-4318-8772-a279093a7e58.jpg?w=812",
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-4c8be592-36d3-4d76-8051-5079a42146f3.jpg?w=812",
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-850d3666-4e55-46eb-8e2b-f8ecdf0b9ae3.jpg?w=812",
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-8e542ad8-7b98-469b-98bc-60037a3f5f84.jpg?w=812"
+    ]
+  },
+  {
+    "id": "art-7",
+    "title": "Flora & Silver Pendant",
+    "category": "Jewelry",
+    "material": "Silver & Semi-Precious Stone",
+    "year": 2021,
+    "status": "Available",
+    "dimensions": "8 x 4 cm",
+    "location": "Kawaf Gallery Archive",
+    "series": "Masterpieces Jewelry",
+    "aspectRatio": "aspect-[1/1]",
+    "imageUrl": "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-4c8be592-36d3-4d76-8051-5079a42146f3.jpg?w=812",
+    "images": [
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-4c8be592-36d3-4d76-8051-5079a42146f3.jpg?w=812",
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-850d3666-4e55-46eb-8e2b-f8ecdf0b9ae3.jpg?w=812",
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-8e542ad8-7b98-469b-98bc-60037a3f5f84.jpg?w=812",
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-ddd10710-d36c-48c0-bc62-0e9e11fcb6e9.jpg?w=812"
+    ]
+  },
+  {
+    "id": "art-8",
+    "title": "Anatomy Study: Tension",
+    "category": "Sculpture",
+    "material": "Terracotta / Clay",
+    "year": 2020,
+    "status": "Available",
+    "dimensions": "50 x 25 x 25 cm",
+    "location": "Adham Ismael Center",
+    "series": "Pedagogical Sculptures",
+    "aspectRatio": "aspect-[4/5]",
+    "imageUrl": "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-850d3666-4e55-46eb-8e2b-f8ecdf0b9ae3.jpg?w=812",
+    "images": [
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-850d3666-4e55-46eb-8e2b-f8ecdf0b9ae3.jpg?w=812",
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-8e542ad8-7b98-469b-98bc-60037a3f5f84.jpg?w=812",
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-ddd10710-d36c-48c0-bc62-0e9e11fcb6e9.jpg?w=812",
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-ffb72100-3356-4c47-9759-4509e53fc7d4.jpg?w=812"
+    ]
+  },
+  {
+    "id": "art-9",
+    "title": "Rhythm of the Old City",
+    "category": "Painting",
+    "material": "Oil & Charcoal on Linen",
+    "year": 2019,
+    "status": "Sold",
+    "dimensions": "180 x 140 cm",
+    "location": "Private Collection, Amman",
+    "series": "Urban Archetypes",
+    "aspectRatio": "aspect-[16/9]",
+    "imageUrl": "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-8e542ad8-7b98-469b-98bc-60037a3f5f84.jpg?w=812",
+    "images": [
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-8e542ad8-7b98-469b-98bc-60037a3f5f84.jpg?w=812",
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-ddd10710-d36c-48c0-bc62-0e9e11fcb6e9.jpg?w=812",
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-ffb72100-3356-4c47-9759-4509e53fc7d4.jpg?w=812",
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-830133a1-2d7c-4a37-b695-46ebc114ce98.jpg?w=812"
+    ]
+  },
+  {
+    "id": "art-10",
+    "title": "Relief in White Carrara",
+    "category": "Sculpture",
+    "material": "Marble",
+    "year": 2018,
+    "status": "Available",
+    "dimensions": "70 x 70 x 15 cm",
+    "location": "Studio Damascus",
+    "series": "Relief Compositions",
+    "aspectRatio": "aspect-[1/1]",
+    "imageUrl": "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-ddd10710-d36c-48c0-bc62-0e9e11fcb6e9.jpg?w=812",
+    "images": [
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-ddd10710-d36c-48c0-bc62-0e9e11fcb6e9.jpg?w=812",
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-ffb72100-3356-4c47-9759-4509e53fc7d4.jpg?w=812",
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-830133a1-2d7c-4a37-b695-46ebc114ce98.jpg?w=812",
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-96fd2da9-ee1c-4b95-8e8e-c90ff39ef2a2.jpg?w=812"
+    ]
+  },
+  {
+    "id": "art-11",
+    "title": "Archival Brooch: Geometric Contour",
+    "category": "Jewelry",
+    "material": "Gold & Lapis Lazuli",
+    "year": 2016,
+    "status": "Sold",
+    "dimensions": "6 x 5 cm",
+    "location": "Private Collection",
+    "series": "Masterpieces Jewelry",
+    "aspectRatio": "aspect-[1/1]",
+    "imageUrl": "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-ffb72100-3356-4c47-9759-4509e53fc7d4.jpg?w=812",
+    "images": [
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-ffb72100-3356-4c47-9759-4509e53fc7d4.jpg?w=812",
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-830133a1-2d7c-4a37-b695-46ebc114ce98.jpg?w=812",
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-96fd2da9-ee1c-4b95-8e8e-c90ff39ef2a2.jpg?w=812",
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-bd916210-9118-47fb-a798-63661eb10a39.jpg?w=812"
+    ]
+  },
+  {
+    "id": "art-12",
+    "title": "The Reencounter",
+    "category": "Sculpture",
+    "material": "Bronze & Stone Base",
+    "year": 1999,
+    "status": "Sold",
+    "dimensions": "210 x 80 x 70 cm",
+    "location": "Saladin Castle Monument Park",
+    "series": "Sculpture Reencounters",
+    "aspectRatio": "aspect-[3/4]",
+    "imageUrl": "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-830133a1-2d7c-4a37-b695-46ebc114ce98.jpg?w=812",
+    "images": [
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-830133a1-2d7c-4a37-b695-46ebc114ce98.jpg?w=812",
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-96fd2da9-ee1c-4b95-8e8e-c90ff39ef2a2.jpg?w=812",
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-bd916210-9118-47fb-a798-63661eb10a39.jpg?w=812",
+      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-b615b0e9-a3d8-4f10-ae40-c9a87d00f722.jpg?w=812"
+    ]
+  }
+]

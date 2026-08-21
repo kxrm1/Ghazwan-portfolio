@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: "Times New Roman", Times, Georgia, serif !important;
+  }
+  
+  ::selection {
+    background-color: #a2a2a2;
+    color: #ffffff;
+  }
+
+  html, body {
+    background-color: #ffffff;
+    color: #1c1c1c;
+    font-family: "Times New Roman", Times, Georgia, serif !important;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+}
+
+/* Hide scrollbar for clean static left sidebar */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Custom smooth transitions */
+a {
+  transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.subtle-hover:hover {
+  opacity: 0.45;
+}
