@@ -4,7 +4,7 @@
 // Load custom env if available
 $adminUser = getenv('ADMIN_USERNAME') ?: 'admin';
 $adminPass = getenv('ADMIN_PASSWORD') ?: 'ghazwan2026!';
-$secretSalt = getenv('AUTH_SECRET') ?: 'ghazwan_secret_salt_key_9988';
+$secretSalt = getenv('AUTH_SECRET') ?: 'a9f3b7c2d8e1f4056789abcdef0123456789abcdef0123456789abcdef012345';
 
 define('ADMIN_USER', $adminUser);
 define('ADMIN_PASS', $adminPass);
