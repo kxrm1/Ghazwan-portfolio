@@ -85,6 +85,9 @@ export default function LandingPage({ data, onContinue }: LandingPageProps) {
           <img
             src={data.heroImage}
             alt="Hero"
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
             className="absolute inset-0 w-full h-full object-cover"
           />
         )}

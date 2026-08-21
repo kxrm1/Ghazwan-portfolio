@@ -350,7 +350,7 @@ export default function ArtworkGallery() {
       ) : layoutMode === 'masonry' ? (
         <div className="columns-1 sm:columns-2 gap-5 md:gap-7 [column-fill:_balance]">
           <AnimatePresence>
-            {filteredArtworks.map((art) => {
+            {filteredArtworks.map((art, idx) => {
               const displayImg = art.imageUrl || (art.images && art.images[0]) || ''
               return (
                 <motion.div
@@ -379,6 +379,7 @@ export default function ArtworkGallery() {
                       src={displayImg}
                       aspectRatio={art.aspectRatio}
                       objectFit="contain"
+                      priority={idx < 3}
                       label={`${art.title}`}
                       alt={art.title}
                       className="bg-white"
@@ -398,7 +399,7 @@ export default function ArtworkGallery() {
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-4 gap-y-6 md:gap-x-5 md:gap-y-8">
           <AnimatePresence>
-            {filteredArtworks.map((art) => {
+            {filteredArtworks.map((art, idx) => {
               const displayImg = art.imageUrl || (art.images && art.images[0]) || ''
               return (
                 <motion.div
@@ -417,6 +418,7 @@ export default function ArtworkGallery() {
                       src={displayImg}
                       aspectRatio="h-full w-full"
                       objectFit="contain"
+                      priority={idx < 6}
                       label={`${art.title}`}
                       alt={art.title}
                       className="h-full w-full bg-white flex items-center justify-center"

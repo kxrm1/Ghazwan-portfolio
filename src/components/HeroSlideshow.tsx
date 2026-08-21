@@ -8,6 +8,9 @@ export default function HeroSlideshow() {
       <img
         src="/hero-profile.jpg"
         alt="Ghazwan Allaf artwork feature"
+        loading="eager"
+        fetchPriority="high"
+        decoding="async"
         className="w-full h-full object-contain"
       />
     </div>

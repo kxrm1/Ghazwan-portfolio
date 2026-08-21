@@ -4,10 +4,15 @@ import path from 'path'
 import crypto from 'crypto'
 import { authenticateRequest, unauthorizedResponse } from '@/lib/auth'
 
+let sharp: any = null
+try {
+  sharp = require('sharp')
+} catch {}
+
 export const dynamic = 'force-dynamic'
 export const runtime = 'nodejs'
 
-const MAX_FILE_SIZE_BYTES = 10 * 1024 * 1024 // 10MB
+const MAX_FILE_SIZE_BYTES = 15 * 1024 * 1024 // 15MB
 const ALLOWED_EXTENSIONS = new Set(['.jpg', '.jpeg', '.png', '.webp', '.gif', '.avif'])
 const ALLOWED_MIME_TYPES = new Set([
   'image/jpeg',
@@ -16,6 +21,36 @@ const ALLOWED_MIME_TYPES = new Set([
   'image/gif',
   'image/avif'
 ])
+
+async function optimizeAndSaveImage(buffer: Buffer, uploadDir: string, rawExt: string): Promise<string> {
+  const randomHash = crypto.randomBytes(6).toString('hex')
+  const baseName = `art_${Date.now()}_${randomHash}`
+
+  if (sharp) {
+    try {
+      // Auto-orient EXIF, resize if > 2400px, compress to modern WebP (85% quality)
+      const filename = `${baseName}.webp`
+      const filepath = path.join(uploadDir, filename)
+
+      await sharp(buffer)
+        .rotate() // auto-orient based on EXIF
+        .resize({ width: 2400, height: 2400, fit: 'inside', withoutEnlargement: true })
+        .webp({ quality: 85, effort: 4 })
+        .toFile(filepath)
+
+      return `/uploads/${filename}`
+    } catch (sharpErr) {
+      console.warn('Sharp optimization error, falling back to direct write:', sharpErr)
+    }
+  }
+
+  // Fallback to direct raw file write if sharp is unavailable
+  const safeExt = ALLOWED_EXTENSIONS.has(rawExt) ? rawExt : '.jpg'
+  const filename = `${baseName}${safeExt}`
+  const filepath = path.join(uploadDir, filename)
+  fs.writeFileSync(filepath, buffer)
+  return `/uploads/${filename}`
+}
 
 export async function POST(req: Request) {
   const auth = authenticateRequest(req)
@@ -43,10 +78,10 @@ export async function POST(req: Request) {
       for (const file of files) {
         if (!file || typeof file.arrayBuffer !== 'function') continue
 
-        // Check file size
+        // Check file size (15MB limit)
         if (file.size > MAX_FILE_SIZE_BYTES) {
           return NextResponse.json(
-            { error: `File "${file.name}" exceeds maximum allowed size (10MB)` },
+            { error: `File "${file.name}" exceeds maximum allowed size (15MB)` },
             { status: 400 }
           )
         }
@@ -62,16 +97,10 @@ export async function POST(req: Request) {
           )
         }
 
-        const safeExt = ALLOWED_EXTENSIONS.has(ext) ? ext : '.jpg'
-        const randomHash = crypto.randomBytes(6).toString('hex')
-        const filename = `art_${Date.now()}_${randomHash}${safeExt}`
-        const filepath = path.join(uploadDir, filename)
-
         const bytes = await file.arrayBuffer()
         const buffer = Buffer.from(bytes)
-        fs.writeFileSync(filepath, buffer)
-
-        urls.push(`/uploads/${filename}`)
+        const savedUrl = await optimizeAndSaveImage(buffer, uploadDir, ext)
+        urls.push(savedUrl)
       }
     } else {
       // Base64 upload support
@@ -92,17 +121,13 @@ export async function POST(req: Request) {
             const buffer = Buffer.from(match[2], 'base64')
             if (buffer.length > MAX_FILE_SIZE_BYTES) {
               return NextResponse.json(
-                { error: 'Image exceeds maximum allowed size (10MB)' },
+                { error: 'Image exceeds maximum allowed size (15MB)' },
                 { status: 400 }
               )
             }
 
-            const randomHash = crypto.randomBytes(6).toString('hex')
-            const filename = `art_${Date.now()}_${randomHash}${dotExt}`
-            const filepath = path.join(uploadDir, filename)
-            fs.writeFileSync(filepath, buffer)
-
-            urls.push(`/uploads/${filename}`)
+            const savedUrl = await optimizeAndSaveImage(buffer, uploadDir, dotExt)
+            urls.push(savedUrl)
           }
         }
       }
