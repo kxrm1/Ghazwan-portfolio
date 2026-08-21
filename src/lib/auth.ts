@@ -1,8 +1,8 @@
 import crypto from 'crypto'
 
-const AUTH_SECRET = process.env.AUTH_SECRET || 'fallback_dev_secret_do_not_use_in_production'
+const AUTH_SECRET = process.env.AUTH_SECRET || 'fallback_dev_secret_key_change_in_production'
 const ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'admin'
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'ghazwan2026!'
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD
 
 // Token validity duration: 24 hours
 const TOKEN_EXPIRY_MS = 24 * 60 * 60 * 1000
@@ -60,8 +60,13 @@ export function verifyToken(token: string): TokenPayload | null {
 
 /**
  * Validate admin credentials against environment variables.
+ * Enforces that ADMIN_PASSWORD must be configured in environment.
  */
 export function validateCredentials(username: string, password: string): boolean {
+  if (!ADMIN_PASSWORD) {
+    console.error('ADMIN_PASSWORD environment variable is not configured.')
+    return false
+  }
   return username === ADMIN_USERNAME && password === ADMIN_PASSWORD
 }
 

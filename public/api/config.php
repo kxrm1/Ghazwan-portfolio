@@ -1,10 +1,10 @@
 <?php
 // Ghazwan Portfolio PHP Backend Configuration
 
-// Load custom env if available
+// Load custom env if available - NO hardcoded password fallbacks
 $adminUser = getenv('ADMIN_USERNAME') ?: 'admin';
-$adminPass = getenv('ADMIN_PASSWORD') ?: 'ghazwan2026!';
-$secretSalt = getenv('AUTH_SECRET') ?: 'a9f3b7c2d8e1f4056789abcdef0123456789abcdef0123456789abcdef012345';
+$adminPass = getenv('ADMIN_PASSWORD') ?: '';
+$secretSalt = getenv('AUTH_SECRET') ?: '';
 
 define('ADMIN_USER', $adminUser);
 define('ADMIN_PASS', $adminPass);
@@ -24,6 +24,12 @@ function setCorsHeaders() {
 }
 
 function checkAuth() {
+    if (empty(ADMIN_PASS) || empty(SECRET_SALT)) {
+        http_response_code(500);
+        echo json_encode(['error' => 'Server security credentials not configured']);
+        exit;
+    }
+
     $headers = getallheaders();
     $authHeader = $headers['Authorization'] ?? ($headers['authorization'] ?? '');
     $token = str_replace('Bearer ', '', $authHeader);
