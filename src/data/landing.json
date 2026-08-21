@@ -1,0 +1,31 @@
+{
+  "heroImage": "/uploads/art_1787338645249_e06685360fdd.jpg",
+  "titleColor": "#ffffff",
+  "description": "hRwDGASDGASGDSGASDGASDGASDGASDGASDGASDGSDGASDGASDG",
+  "slideshows": [
+    {
+      "id": "slide1",
+      "images": [
+        "/uploads/art_1787338487972_e6a0358d235a.jpg",
+        "/uploads/art_1787338487973_a9d2ea02fa47.jpg",
+        "/uploads/art_1787338487974_98d1e23737fb.jpg"
+      ]
+    },
+    {
+      "id": "slide2",
+      "images": [
+        "/uploads/art_1787338492540_f85f2a71b468.jpg",
+        "/uploads/art_1787338492541_3dbf4d4d2bc7.jpg",
+        "/uploads/art_1787338492543_0bac4934627c.jpg"
+      ]
+    },
+    {
+      "id": "slide3",
+      "images": [
+        "/uploads/art_1787338496366_012421b2e247.jpg",
+        "/uploads/art_1787338496368_761e60a1a01e.jpg",
+        "/uploads/art_1787338496368_102228a74f5a.jpg"
+      ]
+    }
+  ]
+}

@@ -237,3 +237,64 @@ export async function deleteTaxonomyItem(type: 'category' | 'material', name: st
     return { success: false, error: err.message || 'Network error' }
   }
 }
+
+// Landing Page CRUD
+export interface LandingSlideshow {
+  id: string
+  images: string[]
+}
+
+export interface LandingData {
+  heroImage: string
+  titleColor: string
+  description: string
+  slideshows: LandingSlideshow[]
+}
+
+export async function fetchLanding(): Promise<LandingData> {
+  try {
+    const url = `${API_BASE}/landing?t=${Date.now()}`
+    const res = await fetch(url, { cache: 'no-store' })
+    if (res.ok) {
+      const data = await res.json()
+      if (data && typeof data.heroImage === 'string') {
+        return data
+      }
+    }
+  } catch (err) {
+    console.warn('Landing fetch failed:', err)
+  }
+  return {
+    heroImage: '',
+    titleColor: '#ffffff',
+    description: '',
+    slideshows: [
+      { id: 'slide1', images: [] },
+      { id: 'slide2', images: [] },
+      { id: 'slide3', images: [] }
+    ]
+  }
+}
+
+export async function updateLanding(data: Partial<LandingData>): Promise<{ success: boolean; landing?: LandingData; error?: string }> {
+  try {
+    const token = getAuthToken()
+    const url = `${API_BASE}/landing`
+    const res = await fetch(url, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(data)
+    })
+    const json = await res.json()
+    if (res.ok && json.success) {
+      notifyArtworksChanged()
+      return { success: true, landing: json.landing }
+    }
+    return { success: false, error: json.error || 'Failed to update landing' }
+  } catch (err: any) {
+    return { success: false, error: err.message || 'Network error' }
+  }
+}

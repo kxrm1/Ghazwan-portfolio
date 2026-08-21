@@ -16,7 +16,11 @@ import {
   addTaxonomyItem,
   editTaxonomyItem,
   deleteTaxonomyItem,
-  Taxonomy
+  fetchLanding,
+  updateLanding,
+  Taxonomy,
+  LandingData,
+  LandingSlideshow
 } from '@/lib/api'
 import { useLiveSync } from '@/lib/live-sync'
 import PlaceholderImage from '@/components/PlaceholderImage'
@@ -29,7 +33,7 @@ interface Toast {
 
 export default function AdminDashboardPage() {
   const router = useRouter()
-  const [activeTab, setActiveTab] = useState<'inventory' | 'taxonomy'>('inventory')
+  const [activeTab, setActiveTab] = useState<'inventory' | 'taxonomy' | 'landing'>('inventory')
   const [artworks, setArtworks] = useState<Artwork[]>([])
   const [taxonomy, setTaxonomy] = useState<Taxonomy>({ categories: [], materials: [] })
   const [loading, setLoading] = useState(true)
@@ -49,6 +53,21 @@ export default function AdminDashboardPage() {
   const [newCategoryInput, setNewCategoryInput] = useState('')
   const [editingTaxItem, setEditingTaxItem] = useState<{ type: 'category' | 'material', name: string } | null>(null)
   const [editTaxValue, setEditTaxValue] = useState('')
+
+  // Landing Page State
+  const [landingData, setLandingData] = useState<LandingData>({
+    heroImage: '',
+    titleColor: '#ffffff',
+    description: '',
+    slideshows: [
+      { id: 'slide1', images: [] },
+      { id: 'slide2', images: [] },
+      { id: 'slide3', images: [] }
+    ]
+  })
+  const [landingUploading, setLandingUploading] = useState(false)
+  const heroFileRef = useRef<HTMLInputElement | null>(null)
+  const slideFileRefs = useRef<(HTMLInputElement | null)[]>([null, null, null])
 
   // Artwork Form State
   const [formData, setFormData] = useState({
@@ -77,9 +96,10 @@ export default function AdminDashboardPage() {
   const loadData = useCallback(async () => {
     setLoading(true)
     try {
-      const [list, tax] = await Promise.all([fetchArtworks(), fetchTaxonomy()])
+      const [list, tax, landing] = await Promise.all([fetchArtworks(), fetchTaxonomy(), fetchLanding()])
       setArtworks(list)
       setTaxonomy(tax)
+      setLandingData(landing)
     } catch {
       showToast('Error loading archive data. Please refresh.', 'error')
     } finally {
@@ -460,6 +480,16 @@ export default function AdminDashboardPage() {
         >
           Manage Categories & Materials
         </button>
+        <button
+          onClick={() => setActiveTab('landing')}
+          className={`pb-2.5 transition-colors ${
+            activeTab === 'landing'
+              ? 'text-[#111] font-semibold border-b-2 border-[#111]'
+              : 'text-[#888] hover:text-[#111]'
+          }`}
+        >
+          Landing Page
+        </button>
       </div>
 
       {/* TAB 1: INVENTORY TABLE */}
@@ -740,6 +770,272 @@ export default function AdminDashboardPage() {
             </div>
           </div>
 
+        </section>
+      )}
+
+      {/* TAB 3: LANDING PAGE MANAGEMENT */}
+      {activeTab === 'landing' && (
+        <section className="space-y-8 text-[13px]">
+          
+          {/* Hero Image Section */}
+          <div className="border border-[#f0f0f0] p-6 space-y-5 bg-white">
+            <div className="border-b border-[#111] pb-2 flex justify-between items-baseline">
+              <h2 className="text-[16px] font-normal text-[#111]">
+                Hero Background Image
+              </h2>
+              <span className="text-[11px] text-[#888]">(fullscreen cover)</span>
+            </div>
+
+            {/* Hero Image Preview */}
+            {landingData.heroImage ? (
+              <div className="relative w-full aspect-[16/9] bg-[#f0f0f0] overflow-hidden">
+                <img
+                  src={landingData.heroImage}
+                  alt="Hero preview"
+                  className="w-full h-full object-cover"
+                />
+                <button
+                  onClick={() => {
+                    const updated = { ...landingData, heroImage: '' }
+                    setLandingData(updated)
+                  }}
+                  className="absolute top-2 right-2 bg-black/70 text-white text-[10px] px-2 py-1 hover:bg-black/90"
+                >
+                  Remove
+                </button>
+              </div>
+            ) : (
+              <div className="w-full aspect-[16/9] bg-[#f6f6f6] flex items-center justify-center">
+                <span className="text-[#ccc] text-[10px]">No hero image set</span>
+              </div>
+            )}
+
+            {/* Upload Hero */}
+            <div className="flex gap-3">
+              <input
+                type="file"
+                ref={heroFileRef}
+                accept="image/*"
+                className="hidden"
+                onChange={async (e) => {
+                  const files = e.target.files
+                  if (!files || files.length === 0) return
+                  setLandingUploading(true)
+                  try {
+                    const urls = await uploadImages(Array.from(files))
+                    if (urls.length > 0) {
+                      setLandingData(prev => ({ ...prev, heroImage: urls[0] }))
+                      showToast('Hero image uploaded', 'success')
+                    }
+                  } catch (err: any) {
+                    showToast(err.message || 'Upload failed', 'error')
+                  } finally {
+                    setLandingUploading(false)
+                  }
+                }}
+              />
+              <button
+                onClick={() => heroFileRef.current?.click()}
+                disabled={landingUploading}
+                className="bg-[#111] text-white px-3 py-1.5 hover:bg-[#333] transition-colors disabled:opacity-50"
+              >
+                {landingUploading ? 'Uploading...' : 'Upload Hero Image'}
+              </button>
+            </div>
+          </div>
+
+          {/* Title Color & Description */}
+          <div className="border border-[#f0f0f0] p-6 space-y-5 bg-white">
+            <div className="border-b border-[#111] pb-2">
+              <h2 className="text-[16px] font-normal text-[#111]">
+                Title & Description
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <label className="text-[11px] text-[#888] block uppercase">
+                  Title Color (hex)
+                </label>
+                <div className="flex items-center gap-3">
+                  <input
+                    type="color"
+                    value={landingData.titleColor}
+                    onChange={(e) => setLandingData(prev => ({ ...prev, titleColor: e.target.value }))}
+                    className="w-10 h-10 border border-[#d0d0d0] cursor-pointer p-0"
+                  />
+                  <input
+                    type="text"
+                    value={landingData.titleColor}
+                    onChange={(e) => setLandingData(prev => ({ ...prev, titleColor: e.target.value }))}
+                    className="flex-1 border border-[#d0d0d0] px-3 py-1.5 outline-none focus:border-[#111] font-mono"
+                    placeholder="#ffffff"
+                  />
+                </div>
+                <p className="text-[10px] text-[#999]">
+                  This color applies to &ldquo;Ghazwan Allaf&rdquo; (32px) and the description text
+                </p>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-[11px] text-[#888] block uppercase">
+                  Description
+                </label>
+                <textarea
+                  value={landingData.description}
+                  onChange={(e) => setLandingData(prev => ({ ...prev, description: e.target.value }))}
+                  rows={4}
+                  className="w-full border border-[#d0d0d0] px-3 py-2 outline-none focus:border-[#111] resize-none"
+                  placeholder="Short description under the name..."
+                />
+              </div>
+            </div>
+
+            {/* Preview */}
+            <div
+              className="p-6 border border-[#e0e0e0] relative overflow-hidden"
+              style={{ backgroundColor: landingData.heroImage ? '#333' : '#f0f0f0' }}
+            >
+              <p className="text-[10px] text-[#999] mb-2 uppercase">Preview</p>
+              <h3
+                className="font-normal tracking-tight leading-none mb-1"
+                style={{ color: landingData.titleColor, fontSize: '32px' }}
+              >
+                Ghazwan Allaf
+              </h3>
+              {landingData.description && (
+                <p
+                  className="leading-[1.4] max-w-[400px]"
+                  style={{ color: landingData.titleColor, fontSize: '11px', opacity: 0.85 }}
+                >
+                  {landingData.description}
+                </p>
+              )}
+            </div>
+          </div>
+
+          {/* Three Slideshows */}
+          <div className="border border-[#f0f0f0] p-6 space-y-5 bg-white">
+            <div className="border-b border-[#111] pb-2 flex justify-between items-baseline">
+              <h2 className="text-[16px] font-normal text-[#111]">
+                Featured Slideshows (3 boxes)
+              </h2>
+              <span className="text-[11px] text-[#888]">1:1 ratio, auto-rotating</span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {landingData.slideshows.map((slideshow, slideIdx) => (
+                <div key={slideshow.id} className="space-y-3 border border-[#f0f0f0] p-4">
+                  <div className="flex justify-between items-baseline">
+                    <span className="text-[12px] font-medium text-[#111]">
+                      Box {slideIdx + 1}
+                    </span>
+                    <span className="text-[10px] text-[#888]">
+                      {slideshow.images.length} image{slideshow.images.length !== 1 ? 's' : ''}
+                    </span>
+                  </div>
+
+                  {/* Slideshow images */}
+                  {slideshow.images.length > 0 && (
+                    <div className="grid grid-cols-3 gap-2">
+                      {slideshow.images.map((imgUrl, imgIdx) => (
+                        <div key={imgIdx} className="relative group">
+                          <img
+                            src={imgUrl}
+                            alt={`Slide ${imgIdx + 1}`}
+                            className="w-full aspect-square object-cover border border-[#e0e0e0]"
+                          />
+                          <button
+                            onClick={() => {
+                              setLandingData(prev => {
+                                const updated = { ...prev }
+                                updated.slideshows = updated.slideshows.map((s, i) => {
+                                  if (i !== slideIdx) return s
+                                  return { ...s, images: s.images.filter((_, j) => j !== imgIdx) }
+                                })
+                                return updated
+                              })
+                            }}
+                            className="absolute top-0.5 right-0.5 bg-black/70 text-white text-[9px] w-3.5 h-3.5 flex items-center justify-center rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                          >
+                            ✕
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Upload button */}
+                  <div>
+                    <input
+                      type="file"
+                      multiple
+                      accept="image/*"
+                      ref={(el) => { slideFileRefs.current[slideIdx] = el }}
+                      className="hidden"
+                      onChange={async (e) => {
+                        const files = e.target.files
+                        if (!files || files.length === 0) return
+                        setLandingUploading(true)
+                        try {
+                          const urls = await uploadImages(Array.from(files))
+                          if (urls.length > 0) {
+                            setLandingData(prev => {
+                              const updated = { ...prev }
+                              updated.slideshows = updated.slideshows.map((s, i) => {
+                                if (i !== slideIdx) return s
+                                return { ...s, images: [...s.images, ...urls] }
+                              })
+                              return updated
+                            })
+                            showToast(`Uploaded ${urls.length} image(s) to Box ${slideIdx + 1}`, 'success')
+                          }
+                        } catch (err: any) {
+                          showToast(err.message || 'Upload failed', 'error')
+                        } finally {
+                          setLandingUploading(false)
+                        }
+                      }}
+                    />
+                    <button
+                      onClick={() => slideFileRefs.current[slideIdx]?.click()}
+                      disabled={landingUploading}
+                      className="w-full border border-dashed border-[#ccc] hover:border-[#111] bg-[#fafafa] py-2 text-center text-[11px] text-[#555] transition-colors disabled:opacity-50"
+                    >
+                      {landingUploading ? 'Uploading...' : '+ Add Images'}
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Save Button */}
+          <div className="flex justify-end pt-2">
+            <button
+              onClick={async () => {
+                setSaving(true)
+                const res = await updateLanding(landingData)
+                setSaving(false)
+                if (res.success) {
+                  if (res.landing) setLandingData(res.landing)
+                  showToast('Landing page updated successfully', 'success')
+                } else {
+                  if (res.error?.includes('Unauthorized')) {
+                    clearAuthToken()
+                    router.push('/admin/login')
+                  } else {
+                    showToast(res.error || 'Failed to save landing page', 'error')
+                  }
+                }
+              }}
+              disabled={saving}
+              className="px-6 py-2 bg-[#111] text-white hover:bg-[#333] disabled:opacity-50 flex items-center gap-2 transition-colors"
+            >
+              {saving && <span className="w-3 h-3 border-2 border-white/40 border-t-white rounded-full animate-spin" />}
+              <span>Save Landing Page</span>
+            </button>
+          </div>
         </section>
       )}
 
