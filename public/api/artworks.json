@@ -1,24 +1,5 @@
 [
   {
-    "id": "art-2",
-    "title": "Torso in Equilibrium1",
-    "category": "Sculpture",
-    "material": "Marble",
-    "year": 2023,
-    "status": "Sold",
-    "dimensions": "85 x 30 x 30 cm",
-    "location": "Private Collection, Beirut",
-    "series": "Classical Reinterpretation",
-    "aspectRatio": "aspect-[4/5]",
-    "imageUrl": "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-bd916210-9118-47fb-a798-63661eb10a39.jpg?w=812",
-    "images": [
-      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-bd916210-9118-47fb-a798-63661eb10a39.jpg?w=812",
-      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-b615b0e9-a3d8-4f10-ae40-c9a87d00f722.jpg?w=812",
-      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-eeffe04a-1d5c-4f5c-96fe-75fa5a18d029.jpg?w=812",
-      "https://i-p.rmcdn.net/6719169732eee58ca71f4a43/5068024/image-283b0865-ec63-4411-9689-d9d15024479e.jpg?w=812"
-    ]
-  },
-  {
     "id": "art-3",
     "title": "Duality of Silence",
     "category": "Sculpture",
