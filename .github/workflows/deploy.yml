@@ -39,6 +39,10 @@ jobs:
             **/.git*/**
             **/node_modules/**
             **/.next/cache/**
+            **/.next/trace
+            **/.next/types/**
             src/data/artworks.json
             src/data/taxonomy.json
+            public/api/artworks.json
+            public/api/taxonomy.json
             public/uploads/**
