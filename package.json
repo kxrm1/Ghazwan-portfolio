@@ -7,7 +7,9 @@
     "build": "next build",
     "deploy-zip": "next build && rm -f ../ghazwan-deploy.zip && zip -r ../ghazwan-deploy.zip . -x 'node_modules/*' -x '.next/cache/*' -x '.git/*' -x '*.zip' -x '.DS_Store' -x '__MACOSX/*' -x 'src/data/artworks.json' -x 'src/data/taxonomy.json' -x 'public/uploads/*'",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "optimize-uploads": "node scripts/optimize-uploads.mjs",
+    "optimize-uploads:apply": "node scripts/optimize-uploads.mjs --apply"
   },
   "dependencies": {
     "clsx": "^2.1.1",

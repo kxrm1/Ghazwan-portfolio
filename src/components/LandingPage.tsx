@@ -2,22 +2,20 @@
 
 import React, { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import type { LandingData } from '@/lib/landing-store'
 
 interface SlideShow {
   id: string
   images: string[]
 }
 
-export interface LandingData {
-  heroImage: string
-  titleColor: string
-  description: string
-  slideshows: SlideShow[]
-}
-
 interface LandingPageProps {
   data: LandingData
-  onContinue: () => void
+}
+
+function buildSrcSet(variants?: { width: number; src: string }[]): string | undefined {
+  if (!variants || variants.length === 0) return undefined
+  return variants.map(v => `${v.src} ${v.width}w`).join(', ')
 }
 
 function SlideshowBox({ images }: { images: string[] }) {
@@ -34,6 +32,18 @@ function SlideshowBox({ images }: { images: string[] }) {
     }
   }, [images.length])
 
+  useEffect(() => {
+    if (images.length <= 1) return
+    const t = setTimeout(() => {
+      const next = images[(current + 1) % images.length]
+      if (next) {
+        const img = new Image()
+        img.src = next
+      }
+    }, 2500)
+    return () => clearTimeout(t)
+  }, [current, images])
+
   if (images.length === 0) {
     return (
       <div className="w-full aspect-square bg-[#f6f6f6] flex items-center justify-center">
@@ -49,6 +59,8 @@ function SlideshowBox({ images }: { images: string[] }) {
           key={`${images[current]}-${current}`}
           src={images[current]}
           alt={`Slideshow image ${current + 1}`}
+          loading="lazy"
+          decoding="async"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -75,21 +87,37 @@ function SlideshowBox({ images }: { images: string[] }) {
   )
 }
 
-export default function LandingPage({ data, onContinue }: LandingPageProps) {
+export default function LandingPage({ data }: LandingPageProps) {
+  const [heroLoaded, setHeroLoaded] = useState(false)
+
+  const scrollToGallery = () => {
+    document.getElementById('gallery')?.scrollIntoView({ behavior: 'smooth' })
+  }
+
   return (
     <div className="w-full">
       {/* Fullscreen Hero Section */}
-      <section className="relative w-full h-screen flex items-end overflow-hidden">
+      <section className="relative w-full h-screen flex items-end overflow-hidden bg-[#f0f0f0]">
         {/* Background Image */}
         {data.heroImage && (
-          <img
-            src={data.heroImage}
-            alt="Hero"
-            loading="eager"
-            fetchPriority="high"
-            decoding="async"
-            className="absolute inset-0 w-full h-full object-cover"
-          />
+          <>
+            {!heroLoaded && (
+              <div className="absolute inset-0 bg-[#f0f0f0] animate-pulse" />
+            )}
+            <img
+              src={data.heroImage}
+              srcSet={buildSrcSet(data.heroVariants)}
+              sizes="100vw"
+              alt="Hero"
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+              onLoad={() => setHeroLoaded(true)}
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-out ${
+                heroLoaded ? 'opacity-100' : 'opacity-0'
+              }`}
+            />
+          </>
         )}
         {!data.heroImage && (
           <div className="absolute inset-0 bg-[#f0f0f0] flex items-center justify-center">
@@ -138,7 +166,7 @@ export default function LandingPage({ data, onContinue }: LandingPageProps) {
         {/* Continue to Gallery */}
         <div className="flex justify-center pt-12 md:pt-16">
           <button
-            onClick={onContinue}
+            onClick={scrollToGallery}
             className="group flex items-center gap-2 text-[#111] hover:opacity-50 transition-opacity"
             style={{ fontSize: '11px' }}
           >
