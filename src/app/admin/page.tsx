@@ -815,7 +815,7 @@ export default function AdminDashboardPage() {
                 />
                 <button
                   onClick={() => {
-                    const updated = { ...landingData, heroImage: '' }
+                    const updated = { ...landingData, heroImage: '', heroVariants: undefined }
                     setLandingData(updated)
                   }}
                   className="absolute top-2 right-2 bg-black/70 text-white text-[10px] px-2 py-1 hover:bg-black/90"
@@ -843,7 +843,7 @@ export default function AdminDashboardPage() {
                   try {
                     const urls = await uploadImages(Array.from(files))
                     if (urls.length > 0) {
-                      setLandingData(prev => ({ ...prev, heroImage: urls[0] }))
+                      setLandingData(prev => ({ ...prev, heroImage: urls[0], heroVariants: undefined }))
                       showToast('Hero image uploaded', 'success')
                     }
                   } catch (err: any) {

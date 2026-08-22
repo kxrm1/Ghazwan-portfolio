@@ -30,10 +30,20 @@ export async function PUT(req: Request) {
       })) : current.slideshows
     }
 
-    if (Array.isArray(input.heroVariants)) {
+    if (updated.heroImage !== current.heroImage) {
+      if (Array.isArray(input.heroVariants)) {
+        const heroBase = updated.heroImage.split('/').pop()?.replace(/\.[^/.]+$/, '') || ''
+        const filteredVariants = input.heroVariants.filter((v: any) => {
+          if (!v || typeof v.src !== 'string') return false
+          const variantBase = v.src.split('/').pop()?.replace(/(-\d+w)?\.[^/.]+$/, '') || ''
+          return heroBase && variantBase === heroBase
+        })
+        updated.heroVariants = filteredVariants.length > 0 ? filteredVariants : undefined
+      } else {
+        updated.heroVariants = undefined
+      }
+    } else if (Array.isArray(input.heroVariants)) {
       updated.heroVariants = input.heroVariants.filter((v: any) => v && typeof v.src === 'string')
-    } else if (updated.heroImage !== current.heroImage) {
-      updated.heroVariants = undefined
     } else {
       updated.heroVariants = current.heroVariants
     }

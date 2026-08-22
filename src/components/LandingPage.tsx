@@ -13,9 +13,18 @@ interface LandingPageProps {
   data: LandingData
 }
 
-function buildSrcSet(variants?: { width: number; src: string }[]): string | undefined {
-  if (!variants || variants.length === 0) return undefined
-  return variants.map(v => `${v.src} ${v.width}w`).join(', ')
+function buildSrcSet(heroImage?: string, variants?: { width: number; src: string }[]): string | undefined {
+  if (!heroImage || !variants || variants.length === 0) return undefined
+  const heroBase = heroImage.split('/').pop()?.replace(/\.[^/.]+$/, '') || ''
+  if (!heroBase) return undefined
+
+  const matching = variants.filter(v => {
+    const variantBase = v.src.split('/').pop()?.replace(/(-\d+w)?\.[^/.]+$/, '') || ''
+    return variantBase === heroBase
+  })
+
+  if (matching.length === 0) return undefined
+  return matching.map(v => `${v.src} ${v.width}w`).join(', ')
 }
 
 function SlideshowBox({ images }: { images: string[] }) {
@@ -106,7 +115,7 @@ export default function LandingPage({ data }: LandingPageProps) {
             )}
             <img
               src={data.heroImage}
-              srcSet={buildSrcSet(data.heroVariants)}
+              srcSet={buildSrcSet(data.heroImage, data.heroVariants)}
               sizes="100vw"
               alt="Hero"
               loading="eager"
