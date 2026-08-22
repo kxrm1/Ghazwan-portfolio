@@ -114,7 +114,21 @@ export default function AdminDashboardPage() {
       router.push('/admin/login')
       return
     }
-    loadData()
+
+    fetch('/api/auth', {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then((res) => {
+        if (!res.ok) {
+          clearAuthToken()
+          router.push('/admin/login')
+        } else {
+          loadData()
+        }
+      })
+      .catch(() => {
+        loadData()
+      })
   }, [router, loadData])
 
   // Live Sync for multi-window / multi-device admin updates
@@ -286,7 +300,12 @@ export default function AdminDashboardPage() {
         showToast(`Successfully uploaded ${uploadedUrls.length} image(s)`, 'success')
       }
     } catch (err: any) {
-      showToast(err.message || 'Error uploading images. Please check file sizes (max 10MB).', 'error')
+      if (err.message?.includes('Unauthorized')) {
+        clearAuthToken()
+        router.push('/admin/login')
+      } else {
+        showToast(err.message || 'Error uploading images. Please check file sizes (max 10MB).', 'error')
+      }
     } finally {
       setUploading(false)
     }
@@ -828,7 +847,12 @@ export default function AdminDashboardPage() {
                       showToast('Hero image uploaded', 'success')
                     }
                   } catch (err: any) {
-                    showToast(err.message || 'Upload failed', 'error')
+                    if (err.message?.includes('Unauthorized')) {
+                      clearAuthToken()
+                      router.push('/admin/login')
+                    } else {
+                      showToast(err.message || 'Upload failed', 'error')
+                    }
                   } finally {
                     setLandingUploading(false)
                   }
@@ -991,7 +1015,12 @@ export default function AdminDashboardPage() {
                             showToast(`Uploaded ${urls.length} image(s) to Box ${slideIdx + 1}`, 'success')
                           }
                         } catch (err: any) {
-                          showToast(err.message || 'Upload failed', 'error')
+                          if (err.message?.includes('Unauthorized')) {
+                            clearAuthToken()
+                            router.push('/admin/login')
+                          } else {
+                            showToast(err.message || 'Upload failed', 'error')
+                          }
                         } finally {
                           setLandingUploading(false)
                         }
