@@ -46,4 +46,3 @@ jobs:
             src/data/taxonomy.json
             public/api/artworks.json
             public/api/taxonomy.json
-            public/uploads/**
